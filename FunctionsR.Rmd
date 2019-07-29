@@ -1,0 +1,48 @@
+---
+title: "FunctionsR"
+author: "Diego Quan"
+date: "29/7/2019"
+output: rmarkdown::github_document
+---
+
+```{r cache = TRUE, echo =TRUE}
+find_sample <- function(x){
+  for_index <- sample(1:nrow(x), size = 10, replace = FALSE)
+  new_df <- x[for_index,]
+  return(new_df)
+}
+data <- data.frame(
+  a = 1:10,
+  b = sample(c("GT", "US", "CA"), size = 10, replace = TRUE)
+)
+find_sample(data)
+```
+
+```{r, cache = TRUE}
+generate_df <- function(x){
+  df <- data.frame(
+    a = sample(letters, size = 10, replace = TRUE),
+    b = sample(1:10, size = 10, replace = TRUE)
+  )
+  return(df)
+}
+generate_df(1)
+
+result_list <- list()
+#system.time(for(i in 1:100000){
+#  result_list[[i]] <- generate_df(1)
+#})
+system.time(
+  lapply(1:1000, generate_df)
+)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
